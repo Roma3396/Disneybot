@@ -9,7 +9,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 
 # --- KONFIGURATSIYA ---
-TOKEN = os.getenv("BOT_TOKEN", "8511080877:AAEJtTMmfpFpboOeLxXYZDpUan0MRFImDR0")
+TOKEN = os.getenv("BOT_TOKEN", "8511080877:AAF44psWL5zdY7Mdomi03e1rojguMwWG7zg")
 ADMINS = [7829422043, 6881599988]
 CHANNEL_ID = -1003155796926
 CHANNEL_LINK = "https://t.me/FeaF_Helping"
