@@ -212,11 +212,6 @@ async def film_actions(call: types.CallbackQuery):
     conn.close()
 
 # --- QIDIRUV ---
-@dp.message(F.text == "🔍 Qidiruv")
-async def search_start(message: types.Message, state: FSMContext):
-    await state.set_state(UserState.waiting_for_search)
-    await message.answer("Film nomi yoki kodini yozing:", reply_markup=back_kb())
-
 @dp.message(UserState.waiting_for_search)
 async def search_result(message: types.Message, state: FSMContext):
     if message.text == "🔙 Orqaga":
@@ -224,16 +219,20 @@ async def search_result(message: types.Message, state: FSMContext):
         await message.answer("Asosiy menyu", reply_markup=main_menu(message.from_user.id))
         return
     
+    search_query = message.text.strip() # Foydalanuvchi yozgan matndagi ortiqcha bo'sh joylarni o'chiradi
+    
     conn = sqlite3.connect('films.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM films WHERE name LIKE ? OR code = ?", (f'%{message.text}%', message.text))
+    # Ham nomi bo'yicha, ham kodi bo'yicha qidirish
+    c.execute("SELECT * FROM films WHERE name LIKE ? OR code = ?", (f'%{search_query}%', search_query))
     film = c.fetchone()
     conn.close()
     
     if film:
         await send_film_card(message.chat.id, film)
+        await state.clear() # Qidiruv muvaffaqiyatli bo'lsa holatni yopamiz
     else:
-        await message.answer("Hech narsa topilmadi 😕")
+        await message.answer(f"'{search_query}' kodi yoki nomi bilan hech narsa topilmadi 😕\nQaytadan urinib ko'ring yoki '🔙 Orqaga' tugmasini bosing."
 
 # --- SAQLANGANLAR ---
 @dp.message(F.text == "💾 Saqlangan")
