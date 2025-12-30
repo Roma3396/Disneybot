@@ -10,7 +10,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 # --- KONFIGURATSIYA ---
 # Tokenni Render "Environment Variables" qismiga BOT_TOKEN nomi bilan qo'shsangiz ham bo'ladi
-TOKEN = os.getenv("BOT_TOKEN", "8511080877:AAFaQLkJtpezZfzuwt897HJSNOgAaK0rDXQ")
+TOKEN = os.getenv("BOT_TOKEN", "8511080877:AAE5rirZbZIuY6YVWV5NVcu4kLWQ8jgHkHU")
 ADMINS = [7829422043, 6881599988]
 CHANNEL_ID = -1003155796926
 CHANNEL_LINK = "https://t.me/FeaF_Helping"
